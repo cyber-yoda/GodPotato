@@ -110,7 +110,7 @@ namespace GodPotato
                     
                     TokenuUils.createProcessReadOut(ConsoleWriter, systemIdentity.Token, potatoArgs.cmd);
 
-                    // Informa Person that command ran properly without timing out
+                    // Inform Person that command ran properly without timing out
                     // WIP - Print on ONLY attackers end
                     ConsoleWriter.WriteLine("[+] Command Execution Completed.");
                 }
